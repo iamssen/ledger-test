@@ -1,4 +1,5 @@
 import reactRefresh from '@vitejs/plugin-react-refresh';
+import path from 'path';
 import { defineConfig } from 'vite';
 import svgr from 'vite-plugin-svgr';
 import tsconfigPaths from 'vite-tsconfig-paths';
@@ -7,15 +8,17 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 export default defineConfig({
   resolve: {
     alias: {
-      //'styled-components':
-      //  'styled-components/dist/styled-components.browser.esm.js',
-      buffer: 'buffer/index.js',
+      '@terra-money/terra.js': path.resolve(
+        __dirname,
+        'src/polyfills/terra.alias.js',
+      ),
+      'process': path.resolve(__dirname, 'src/polyfills/process-es6.js'),
     },
   },
-  define: {
-    'process.env.NODE_DEBUG': 'false',
-    //Buffer: 'buffer',
-  },
+  //define: {
+  //  'process.env.NODE_DEBUG': 'false',
+  //  //Buffer: 'buffer',
+  //},
   server: {
     https: {
       cert: process.env.LOCALHOST_HTTPS_CERT,

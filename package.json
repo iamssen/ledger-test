@@ -27,5 +27,8 @@
     "husky": "^6.0.0",
     "lint-staged": "^11.0.0",
     "prettier": "^2.3.1"
+  },
+  "dependencies": {
+    "@terra-money/terra.js": "^1.8.8"
   }
 }
