@@ -8,11 +8,7 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 export default defineConfig({
   resolve: {
     alias: {
-      '@terra-money/terra.js': path.resolve(
-        __dirname,
-        'src/polyfills/terra.alias.js',
-      ),
-      'process': path.resolve(__dirname, 'src/polyfills/process-es6.js'),
+      process: path.resolve(__dirname, 'src/polyfills/process-es6.js'),
     },
   },
   //define: {
