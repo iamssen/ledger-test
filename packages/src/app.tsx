@@ -15,7 +15,7 @@ import {
 import { signatureImport } from 'secp256k1';
 import { Key } from './terrajs/Key';
 
-const path = [44, 330, 0, 0, 0];
+const path: [number, number, number, number, number] = [44, 330, 0, 0, 0];
 
 class LedgerKey extends Key {
   constructor(publicKey: Buffer | undefined, private app: TerraLedgerApp) {
