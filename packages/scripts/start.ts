@@ -10,6 +10,7 @@ import { launch } from 'puppeteer';
 
   const browser = await launch({
     userDataDir: process.env.CHROMIUM_USER_DATA_DEBUG,
+    //executablePath: '/',
     headless: false,
     defaultViewport: null,
     args: [

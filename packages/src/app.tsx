@@ -1,9 +1,9 @@
+import Transport from '@ledgerhq/hw-transport';
 import TransportWebUSB from '@ledgerhq/hw-transport-webusb';
 import TerraLedgerApp from '@terra-money/ledger-terra-js';
-import React, { useCallback } from 'react';
-import { render } from 'react-dom';
 import {
   CreateTxOptions,
+  Key,
   LCDClient,
   MsgSend,
   PublicKey,
@@ -12,8 +12,9 @@ import {
   StdSignMsg,
   StdTx,
 } from '@terra-money/terra.js';
+import React, { useCallback } from 'react';
+import { render } from 'react-dom';
 import { signatureImport } from 'secp256k1';
-import { Key } from './terrajs/Key';
 
 const path: [number, number, number, number, number] = [44, 330, 0, 0, 0];
 
@@ -55,14 +56,26 @@ class LedgerKey extends Key {
 }
 
 function App() {
-  const getDeviceList = useCallback(async () => {
+  const usbDeviceList = useCallback(async () => {
     const list = await TransportWebUSB.list();
     console.log('app.tsx..()', list);
+
+    //@ts-ignore
+    console.log('app.tsx..()', USBDevice);
   }, []);
 
-  const test = useCallback(async () => {
-    console.log('test::start');
+  const connect = useCallback(async (): Promise<Transport> => {
     const transport = await TransportWebUSB.create(1000 * 60 * 100000);
+
+    if (transport) {
+      return transport;
+    } else {
+      throw new Error(`Can't connect`);
+    }
+  }, []);
+
+  const info = useCallback(async () => {
+    const transport = await connect();
     const app = new TerraLedgerApp(transport);
 
     await app.initialize();
@@ -70,11 +83,19 @@ function App() {
 
     console.log('test::getInfo', await app.getInfo());
 
-    transport.on('disconnect', (...args) => {
-      console.log('test::disconnect', ...args);
-    });
-
     console.log('test::getVersion', await app.getVersion());
+
+    await transport.close();
+  }, [connect]);
+
+  const executeTx = useCallback(async () => {
+    console.log('test::start');
+
+    const transport = await connect();
+    const app = new TerraLedgerApp(transport);
+
+    await app.initialize();
+    console.log('test::initialized');
 
     const publicKey = await app.getAddressAndPubKey(path, 'terra');
     console.log('test::publicKey', publicKey);
@@ -106,12 +127,15 @@ function App() {
     const result = await lcd.tx.broadcastSync(stdTx);
 
     console.log('app.tsx..()', result);
-  }, []);
+
+    await transport.close();
+  }, [connect]);
 
   return (
     <div>
-      <button onClick={test}>Test</button>
-      <button onClick={getDeviceList}>Get Device List</button>
+      <button onClick={usbDeviceList}>USB Device List</button>
+      <button onClick={info}>Get Info</button>
+      <button onClick={executeTx}>Execute Tx</button>
     </div>
   );
 }

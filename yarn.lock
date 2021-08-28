@@ -15052,6 +15052,7 @@ fsevents@^1.2.7:
     tsconfig-paths: ^3.9.0
     typescript: ^4.3.4
     vite: ^2.3.8
+    vite-compatible-readable-stream: ^3.6.0
     vite-plugin-svgr: ^0.3.0
     vite-tsconfig-paths: ^3.3.13
   languageName: unknown
@@ -20551,6 +20552,17 @@ resolve@^2.0.0-next.3:
     unist-util-stringify-position: ^2.0.0
     vfile-message: ^2.0.0
   checksum: 89d3410d8ccd2122064df20658d394ccfd87e84650c146365e46d549f7d343223ee79b889824de68b47e516adf18a8bfa719e193357841bb03a51a0dca9e885b
+  languageName: node
+  linkType: hard
+
+"vite-compatible-readable-stream@npm:^3.6.0":
+  version: 3.6.0
+  resolution: "vite-compatible-readable-stream@npm:3.6.0"
+  dependencies:
+    inherits: ^2.0.3
+    string_decoder: ^1.1.1
+    util-deprecate: ^1.0.1
+  checksum: a2875806c268e9e79417c0218a3c61778e8d8bc99c95164a5c83b2400af4b6b6ac3a30c892cb3e9a9c2dc8932d44146b7f56f5679a3b272aa8f82e35d8667584
   languageName: node
   linkType: hard
 
