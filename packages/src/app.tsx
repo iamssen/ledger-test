@@ -58,7 +58,7 @@ class LedgerKey extends Key {
 function App() {
   const usbDeviceList = useCallback(async () => {
     const list = await TransportWebUSB.list();
-    console.log('app.tsx..()', list);
+    console.log('app.tsx..() ???', list);
 
     //@ts-ignore
     console.log('app.tsx..()', USBDevice);
